@@ -28,14 +28,14 @@ pipeline {
                     base_image = "${BASE_IMAGE}" == "" ? parent_image_for_branches[BRANCH] : "${BASE_IMAGE}"
                 }
 
-                echo "Branch: ${params.BRANCH}"
+                echo "Develop branch: ${params.BRANCH}"
                 echo "Build Docker from: ${base_image}"
             }
         }
 
         stage('Deploy') {
             steps {
-                echo "Branch: ${params.BRANCH}"
+                echo "Develop branch: ${params.BRANCH}"
                 echo "Build Docker from: ${base_image}"
             }
         }
