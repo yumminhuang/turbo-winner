@@ -1,8 +1,4 @@
-def parent_image_for_branches = [
-    master: 'alpine',
-    develop: 'ubuntu'
-]
-
+def props = readProperties file: 'build.properties', text: 'PARENT=centos'
 
 pipeline {
     agent any
@@ -18,14 +14,14 @@ pipeline {
             name: 'BASE_IMAGE',
             defaultValue: '',
             trim: true,
-            description: 'Base Docker image. Leave it blank to use the default value.')
+            description: 'Base Docker image. Leave it blank to use the default value in build.properties.')
     }
 
     stages {
         stage('Build') {
             steps {
                 script {
-                    base_image = "${BASE_IMAGE}" == "" ? parent_image_for_branches[BRANCH] : "${BASE_IMAGE}"
+                    base_image = "${BASE_IMAGE}" == "" ? props[PARENT] : "${BASE_IMAGE}"
                 }
 
                 echo "Develop branch: ${params.BRANCH}"
