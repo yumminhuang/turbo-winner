@@ -1,3 +1,9 @@
+def parent_image_for_branches = [
+    master: 'alpine',
+    develop: 'ubuntu'
+]
+
+
 pipeline {
     agent any
 
@@ -18,14 +24,19 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo "Branch: ${BRANCH}"
-                echo "Build Docker from: ${BASE_IMAGE}"
+                script {
+                    base_image = "${BASE_IMAGE}" == "" ? parent_image_for_branches[BRANCH] : "${BASE_IMAGE}"
+                }
+
+                echo "Branch: ${params.BRANCH}"
+                echo "Build Docker from: ${base_image}"
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                echo "Branch: ${params.BRANCH}"
+                echo "Build Docker from: ${base_image}"
             }
         }
     }
