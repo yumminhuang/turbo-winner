@@ -19,7 +19,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    def props = readProperties file: 'build.properties', text: 'PARENT=centos'
+                    def props = readProperties file: 'build.properties', defaults: [PARENT: 'centos']
                     base_image = "${BASE_IMAGE}" == "" ? props['PARENT'] : "${BASE_IMAGE}"
                 }
 
