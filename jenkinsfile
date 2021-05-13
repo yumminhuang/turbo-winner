@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    parameters {
+        string(
+            name: 'BRANCH',
+            defaultValue: 'master',
+            trim: true,
+            description: 'Repo branch to checkout')
+
+        string(
+            name: 'BASE_IMAGE',
+            defaultValue: '',
+            trim: true,
+            description: 'Base Docker image. Leave it blank to use the default value.')
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo "Branch: ${BRANCH}"
+                echo "Build Docker from: ${BASE_IMAGE}"
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    }
+}
