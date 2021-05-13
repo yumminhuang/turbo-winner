@@ -1,5 +1,3 @@
-def props = readProperties file: 'build.properties', text: 'PARENT=centos'
-
 pipeline {
     agent any
 
@@ -21,7 +19,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    base_image = "${BASE_IMAGE}" == "" ? props[PARENT] : "${BASE_IMAGE}"
+                    def props = readProperties file: 'build.properties', text: 'PARENT=centos'
+                    base_image = "${BASE_IMAGE}" == "" ? props['PARENT'] : "${BASE_IMAGE}"
                 }
 
                 echo "Develop branch: ${params.BRANCH}"
