@@ -17,6 +17,9 @@ pipeline {
 
     stages {
         stage('Build') {
+            options {
+                timeout(time: 3, unit: 'SECONDS')
+            }
             steps {
                 script {
                     def props = readProperties file: 'build.properties', defaults: [PARENT: 'centos']
