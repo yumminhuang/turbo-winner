@@ -4,8 +4,6 @@ pipeline {
     options {
         throttleJobProperty(
             categories: ['sw'],
-            maxConcurrentPerNode: 1,
-            maxConcurrentTotal: 0,
             throttleEnabled: true,
             throttleOption: 'category'
         )
