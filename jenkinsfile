@@ -23,6 +23,8 @@ pipeline {
                     base_image = "${BASE_IMAGE}" == "" ? props['PARENT'] : "${BASE_IMAGE}"
                 }
 
+                sleep 30
+
                 echo "Develop branch: ${params.BRANCH}"
                 echo "Build Docker from: ${base_image}"
             }
