@@ -1,6 +1,16 @@
 pipeline {
     agent any
 
+    options {
+        throttleJobProperty(
+            categories: ['sw'],
+            maxConcurrentPerNode: 1,
+            maxConcurrentTotal: 0,
+            throttleEnabled: true,
+            throttleOption: 'category'
+        )
+    }
+
     parameters {
         string(
             name: 'BRANCH',
