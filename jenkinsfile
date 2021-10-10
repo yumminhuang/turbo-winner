@@ -24,17 +24,16 @@ pipeline {
                 script {
                     def props = readProperties file: 'build.properties', defaults: [PARENT: 'centos']
                     base_image = "${BASE_IMAGE}" == "" ? props['PARENT'] : "${BASE_IMAGE}"
+                    try {
+                        echo "Develop branch: ${params.BRANCH}"
+                        sleep 5
+                        echo "Build Docker from: ${base_image}"
+                    }
+                    catch(exc) {
+                        echo "Failed to build from: ${base_image}"
+                        unstable('Build failure')
+                    }
                 }
-                try {
-                    echo "Develop branch: ${params.BRANCH}"
-                    sleep 5
-                    echo "Build Docker from: ${base_image}"
-                }
-                catch(exc) {
-                    echo "Failed to build from: ${base_image}"
-                    unstable('Build failure')
-                }
-
             }
         }
 
